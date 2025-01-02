@@ -5,7 +5,7 @@
 
 
 import time
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import requests
 import re
 import json
@@ -82,7 +82,7 @@ def cook_fries(type_of_fries="straight"):
 
 
 def cook_prawn_noodles(prawn="with prawn", sotong="with sotong"):
-    display= f"""Cooking fried prawn noodles with the following options:
+    display = f"""Cooking fried prawn noodles with the following options:
 Prawn = {prawn},
 Sotong = {sotong}
 """
@@ -134,7 +134,13 @@ For each function call return a json object with function name and arguments wit
 model_id = "meta-llama/Llama-3.2-3B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(model_id)
+quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+
+# Load the model with 8-bit quantization
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    quantization_config=quantization_config
+)
 print(f"The model is loaded on:? {model.device}")
 
 tools_list = [
