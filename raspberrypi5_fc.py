@@ -10,6 +10,7 @@ import requests
 import re
 import json
 import yfinance as yf
+from huggingface_hub import login
 
 
 def get_stock_price(symbol):
@@ -128,6 +129,8 @@ For each function call return a json object with function name and arguments wit
     return system_prompt
 # end of function
 
+
+# login(token="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")
 model_id = "meta-llama/Llama-3.2-3B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
