@@ -1,4 +1,4 @@
-# sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev
+# sudo apt-get install -y libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0 python3-dev ffmpeg
 # pip install pyaudio wave openai-whisper ollama
 
 import pyaudio
@@ -65,7 +65,7 @@ def transcribe_audio(filename):
 
 def summarize_text(text):
     # Use Ollama to summarize the text
-    response = ollama.chat(model='gemma:2b', messages=[
+    response = ollama.chat(model='llama3.2:1b', messages=[
         {
             'role': 'user',
             'content': f'Please summarize this text concisely: {text}'
