@@ -1,4 +1,5 @@
 # sudo apt-get install -y libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0 python3-dev ffmpeg
+# For windows installing ffmpeg is different. Cannot use apt install
 # pip install pyaudio wave openai-whisper ollama
 
 import pyaudio
