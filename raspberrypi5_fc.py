@@ -9,6 +9,14 @@
 # sudo ufw allow 11434/tcp
 # curl -fsSL https://ollama.com/install.sh | sh
 # ollama pull llama3.2:3b
+#
+# For NVIDIA GPU, Modify ollama.service to add env variable to improve token generation speed
+# sudo systemctl edit ollama.service
+# The above will open an editor. Add the following:
+# Environment="OLLAMA_FLASH_ATTENTION=1"
+# Reload the system daemon and restart ollama
+# sudo systemctl daemon-reload
+# sudo systemctl restart ollama
 
 import time
 import requests
@@ -117,6 +125,7 @@ def create_system_prompt(tools_list):
 
 if __name__ == "__main__":
     start_ollama_server()
+    content = input("What is your order? ")
 
     tools_list = [
         {
@@ -210,7 +219,7 @@ if __name__ == "__main__":
     system_prompt = create_system_prompt(tools_list)
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": "Can I have a plate of fried prawn noodles without sotong please?"}
+        {"role": "user", "content": {content}}
     ]
 
     prompt = f"System: {system_prompt}\nUser: {messages[1]['content']}"
